@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '2.7.11'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+    id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
 }
 
 group = 'com.netflix_clone'
@@ -38,6 +39,7 @@ dependencies {
     implementation 'com.querydsl:querydsl-jpa'
     implementation 'com.querydsl:querydsl-core'
     implementation 'org.mariadb.jdbc:mariadb-java-client'
+    annotationProcessor "com.querydsl:querydsl-apt"
 
 }
 
@@ -50,4 +52,43 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    querydsl.extendsFrom compileClasspath
+}
+
+def querydslDirectory = "$buildDir/generated/querydsl"
+
+querydsl {
+    library = "com.querydsl:querydsl-apt"
+    jpa = true
+    querydslDefault = true
+    querydslSourcesDir = querydslDirectory
+}
+
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
+}
+
+sourceSets {
+    main.java.srcDir querydslDirectory
+}
+
+// compileQuerydsl.doFirst 추가
+compileQuerydsl.doFirst {
+    if ( file(querydslDirectory) )
+        delete(file(querydslDirectory))
+}
+
+tasks.withType(JavaCompile) {
+    options.generatedSourceOutputDirectory = file(querydslDirectory)
+}
+clean.doLast {
+    delete file(querydslDirectory)
 }
