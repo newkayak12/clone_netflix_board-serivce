@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RestController;
  * Project board-service
  */
 @RestController
-@RequestMapping(value = "/api/v1/board/faq")
+@RequestMapping(value = "/api/v1/board/")
 public class FaqController {
 
-    @GetMapping(value = "s/")
+    @GetMapping(value = "faqs/")
     public String faqs(){
         return "faqs";
     }
