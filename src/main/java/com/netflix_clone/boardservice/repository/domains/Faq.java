@@ -1,4 +1,4 @@
-package com.netflix_clone.boardservice.repository.entity;
+package com.netflix_clone.boardservice.repository.domains;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
