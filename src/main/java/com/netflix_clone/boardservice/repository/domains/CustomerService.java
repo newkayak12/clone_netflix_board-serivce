@@ -1,10 +1,8 @@
-package com.netflix_clone.boardservice.repository.entity;
+package com.netflix_clone.boardservice.repository.domains;
 
 import com.netflix_clone.boardservice.enums.CsType;
-import com.sun.mail.imap.protocol.BODY;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
