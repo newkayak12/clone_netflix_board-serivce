@@ -1,6 +1,6 @@
 package com.netflix_clone.boardservice.configure.fileUpload;
 
-import com.netflix_clone.userservice.component.constants.Constants;
+import com.netflix_clone.boardservice.constants.Constants;
 import org.newkayak.FileUpload.FileUpload;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.DependsOn;
