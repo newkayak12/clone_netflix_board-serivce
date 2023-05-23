@@ -1,4 +1,4 @@
-package com.netflix_clone.boardservice.repository.CustomerSerivceRepository;
+package com.netflix_clone.boardservice.repository.customerSerivceRepository;
 
 import com.netflix_clone.boardservice.repository.domains.CustomerService;
 import org.springframework.data.jpa.repository.JpaRepository;

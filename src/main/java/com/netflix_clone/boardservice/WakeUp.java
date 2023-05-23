@@ -1,6 +1,6 @@
 package com.netflix_clone.boardservice;
 
-import com.netflix_clone.boardservice.repository.CustomerSerivceRepository.CustomerServiceRepository;
+import com.netflix_clone.boardservice.repository.customerSerivceRepository.CustomerServiceRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;

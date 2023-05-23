@@ -1,9 +1,16 @@
 package com.netflix_clone.boardservice.repository.domains;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Table(name = "banner")
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Banner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
