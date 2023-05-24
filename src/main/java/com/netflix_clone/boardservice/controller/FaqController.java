@@ -27,7 +27,7 @@ public class FaqController {
         return new ResponseEntity(service.faqs(pageable), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/faq/{faqNo:[\\d]+}")
+    @GetMapping(value = "/faq/{faqNo:[\\d]+}/")
     public ResponseEntity<FaqDto> faq(@PathVariable Long faqNo) throws CommonException {
         return new ResponseEntity<>(service.faq(faqNo), HttpStatus.OK);
     }
@@ -37,7 +37,7 @@ public class FaqController {
         return new ResponseEntity<>(service.save(request), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/faq/{faqNo:[\\d+]")
+    @DeleteMapping(value = "/faq/{faqNo:[\\d+]/")
     public ResponseEntity<Boolean> remove(@PathVariable Long faqNo) {
         return new ResponseEntity<>(service.remove(faqNo), HttpStatus.OK);
     }

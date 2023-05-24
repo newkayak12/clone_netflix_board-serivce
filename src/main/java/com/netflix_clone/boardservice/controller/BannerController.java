@@ -26,7 +26,7 @@ public class BannerController {
         return new ResponseEntity<>(service.banners(request), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/banner/{bannerNo:[\\d]+}")
+    @GetMapping(value = "/banner/{bannerNo:[\\d]+}/")
     public ResponseEntity<BannerDto> banner(@PathVariable Long bannerNo) throws CommonException {
         return new ResponseEntity<>(service.banner(bannerNo), HttpStatus.OK);
     }
@@ -36,7 +36,7 @@ public class BannerController {
         return new ResponseEntity<>(service.save(request), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/banner/{bannerNo:[\\d]+}")
+    @DeleteMapping(value = "/banner/{bannerNo:[\\d]+}/")
     public ResponseEntity<Boolean> remove(@PathVariable Long bannerNo) {
         return new ResponseEntity<>(service.remove(bannerNo), HttpStatus.OK);
     }

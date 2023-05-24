@@ -33,5 +33,8 @@ public interface ImageFeign {
     @DeleteMapping(value = "/{fileType}")
     public ResponseEntity<Boolean> remove(@RequestParam List<Long> tableNos, @PathVariable  FileType fileType);
 
-
+    @DeleteMapping(value = "/include")
+    public ResponseEntity<Boolean> removeIn(@RequestParam List<FileDto> files);
+    @DeleteMapping(value = "/exclude")
+    public ResponseEntity<Boolean> removeNotIn(@RequestParam List<FileDto> files);
 }

@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
  * Project board-service
  */
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class CustomerServiceDto implements Serializable {
     private Long csNo;

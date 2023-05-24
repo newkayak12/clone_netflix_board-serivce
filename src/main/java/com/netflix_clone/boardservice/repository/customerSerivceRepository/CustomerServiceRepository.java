@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerServiceRepository extends JpaRepository<CustomerService, Long> {
+public interface CustomerServiceRepository extends JpaRepository<CustomerService, Long>, CustomerServiceRepositoryCustom {
     @Query(nativeQuery = true, value = "SELECT :msg FROM DUAL;")
     String wakeUpMsg(@Param(value = "msg") String Msg);
 }
