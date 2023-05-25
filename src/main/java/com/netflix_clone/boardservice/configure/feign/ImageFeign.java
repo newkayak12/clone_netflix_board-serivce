@@ -22,17 +22,17 @@ public interface ImageFeign {
     @PostMapping(value = "/save", produces = {MediaType.MULTIPART_FORM_DATA_VALUE})
     ResponseEntity<List<FileDto>> save(@RequestPart(value = "requestList") List<FileRequest> requestList);
     @GetMapping(value = "/{tableNo}/{fileType}")
-    public ResponseEntity<FileDto> file(@PathVariable Long tableNo, @PathVariable FileType fileType);
+    public ResponseEntity<FileDto> file(@PathVariable(name = "tableNo") Long tableNo, @PathVariable(name = "fileType") FileType fileType);
     @GetMapping(value = "/{tableNo}/{fileType}")
-    public ResponseEntity<List<FileDto>> files(@PathVariable Long tableNo, @PathVariable FileType fileType);
+    public ResponseEntity<List<FileDto>> files(@PathVariable(name = "tableNo") Long tableNo, @PathVariable(name = "fileType") FileType fileType);
     @GetMapping(value = "/{fileType}")
-    public ResponseEntity<List<FileDto>> files(@RequestParam List<Long> tableNos, @PathVariable FileType fileType);
+    public ResponseEntity<List<FileDto>> files(@RequestParam(value = "tableNos") List<Long> tableNos, @PathVariable(name = "fileType") FileType fileType);
     @DeleteMapping(value = "/{tableNo}/{fileType}")
-    public ResponseEntity<Boolean> remove(@PathVariable Long tableNo, @PathVariable  FileType fileType);
+    public ResponseEntity<Boolean> remove(@PathVariable(name = "tableNo") Long tableNo, @PathVariable(name = "fileType")  FileType fileType);
     @DeleteMapping(value = "/{fileType}")
-    public ResponseEntity<Boolean> remove(@RequestParam List<Long> tableNos, @PathVariable  FileType fileType);
+    public ResponseEntity<Boolean> remove(@RequestParam(value = "tableNos") List<Long> tableNos, @PathVariable(name = "fileType")  FileType fileType);
     @DeleteMapping(value = "/include")
-    public ResponseEntity<Boolean> removeIn(@RequestParam List<FileDto> files);
+    public ResponseEntity<Boolean> removeIn(@RequestParam(value = "files") List<FileDto> files);
     @DeleteMapping(value = "/exclude")
-    public ResponseEntity<Boolean> removeNotIn(@RequestParam List<FileDto> files);
+    public ResponseEntity<Boolean> removeNotIn(@RequestParam(value = "files") List<FileDto> files);
 }

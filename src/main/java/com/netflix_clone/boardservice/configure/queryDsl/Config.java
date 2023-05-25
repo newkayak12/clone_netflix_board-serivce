@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
  * Created on 2023-05-18
  * Project user-service
  */
-@Configuration(value = "querydsl")
+@Configuration(value = "querydsl_configuration")
 @RequiredArgsConstructor
 public class Config {
 

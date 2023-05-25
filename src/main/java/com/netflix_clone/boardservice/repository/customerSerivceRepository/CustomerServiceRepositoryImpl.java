@@ -2,9 +2,8 @@ package com.netflix_clone.boardservice.repository.customerSerivceRepository;
 
 import com.netflix_clone.boardservice.repository.domains.CustomerService;
 import com.netflix_clone.boardservice.repository.domains.QCustomerService;
-import com.netflix_clone.boardservice.repository.dto.QCustomerServiceDto;
 import com.netflix_clone.boardservice.repository.dto.reference.CustomerServiceDto;
-import com.netflix_clone.boardservice.repository.dto.reference.PageableRequest;
+import com.netflix_clone.boardservice.repository.dto.reference.QCustomerServiceDto;
 import com.querydsl.jpa.JPQLQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;

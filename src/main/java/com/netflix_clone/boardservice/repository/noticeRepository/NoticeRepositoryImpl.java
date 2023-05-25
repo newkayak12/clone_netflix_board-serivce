@@ -2,8 +2,8 @@ package com.netflix_clone.boardservice.repository.noticeRepository;
 
 import com.netflix_clone.boardservice.repository.domains.Notice;
 import com.netflix_clone.boardservice.repository.domains.QNotice;
-import com.netflix_clone.boardservice.repository.dto.QNoticeDto;
 import com.netflix_clone.boardservice.repository.dto.reference.NoticeDto;
+import com.netflix_clone.boardservice.repository.dto.reference.QNoticeDto;
 import com.querydsl.jpa.JPQLQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;

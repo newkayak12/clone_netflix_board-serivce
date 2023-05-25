@@ -4,8 +4,9 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-@Configurable(value = "modelMapper")
+@Configuration(value = "modelMapper_configuration")
 public class Config {
     private ModelMapper modelMapper = new ModelMapper();
 

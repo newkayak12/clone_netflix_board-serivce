@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "board-profile")
+@Table(name = "board_profile")
 public class BoardProfile {
     @Id
     @Column(name = "profileNo", columnDefinition = "BIGINT(20)")

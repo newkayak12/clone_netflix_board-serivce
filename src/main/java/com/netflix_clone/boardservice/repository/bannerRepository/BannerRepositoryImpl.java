@@ -1,9 +1,10 @@
 package com.netflix_clone.boardservice.repository.bannerRepository;
 
 import com.netflix_clone.boardservice.repository.domains.Banner;
-import com.netflix_clone.boardservice.repository.dto.QBannerDto;
-import com.netflix_clone.boardservice.repository.dto.QFaqDto;
+//import com.netflix_clone.boardservice.repository.dto.QBannerDto;
+//import com.netflix_clone.boardservice.repository.dto.QFaqDto;
 import com.netflix_clone.boardservice.repository.dto.reference.BannerDto;
+import com.netflix_clone.boardservice.repository.dto.reference.QBannerDto;
 import com.querydsl.jpa.JPQLQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

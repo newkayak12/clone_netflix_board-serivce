@@ -1,8 +1,8 @@
 package com.netflix_clone.boardservice.repository.faqRepository;
 
 import com.netflix_clone.boardservice.repository.domains.Faq;
-import com.netflix_clone.boardservice.repository.dto.QFaqDto;
 import com.netflix_clone.boardservice.repository.dto.reference.FaqDto;
+import com.netflix_clone.boardservice.repository.dto.reference.QFaqDto;
 import com.querydsl.jpa.JPQLQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageImpl;
