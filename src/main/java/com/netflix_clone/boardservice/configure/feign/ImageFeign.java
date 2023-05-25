@@ -3,9 +3,6 @@ package com.netflix_clone.boardservice.configure.feign;
 import com.netflix_clone.boardservice.enums.FileType;
 import com.netflix_clone.boardservice.repository.dto.reference.FileDto;
 import com.netflix_clone.boardservice.repository.dto.reference.FileRequest;
-import com.netflix_clone.userservice.enums.FileType;
-import com.netflix_clone.userservice.repository.dto.reference.FileDto;
-import com.netflix_clone.userservice.repository.dto.reference.FileRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
@@ -25,6 +22,8 @@ public interface ImageFeign {
     @PostMapping(value = "/save", produces = {MediaType.MULTIPART_FORM_DATA_VALUE})
     ResponseEntity<List<FileDto>> save(@RequestPart(value = "requestList") List<FileRequest> requestList);
     @GetMapping(value = "/{tableNo}/{fileType}")
+    public ResponseEntity<FileDto> file(@PathVariable Long tableNo, @PathVariable FileType fileType);
+    @GetMapping(value = "/{tableNo}/{fileType}")
     public ResponseEntity<List<FileDto>> files(@PathVariable Long tableNo, @PathVariable FileType fileType);
     @GetMapping(value = "/{fileType}")
     public ResponseEntity<List<FileDto>> files(@RequestParam List<Long> tableNos, @PathVariable FileType fileType);
@@ -32,7 +31,6 @@ public interface ImageFeign {
     public ResponseEntity<Boolean> remove(@PathVariable Long tableNo, @PathVariable  FileType fileType);
     @DeleteMapping(value = "/{fileType}")
     public ResponseEntity<Boolean> remove(@RequestParam List<Long> tableNos, @PathVariable  FileType fileType);
-
     @DeleteMapping(value = "/include")
     public ResponseEntity<Boolean> removeIn(@RequestParam List<FileDto> files);
     @DeleteMapping(value = "/exclude")

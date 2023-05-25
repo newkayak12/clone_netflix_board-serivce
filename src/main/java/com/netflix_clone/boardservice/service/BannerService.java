@@ -43,11 +43,7 @@ public class BannerService {
     public PageImpl banners(PageableRequest request) {
         Pageable pageable = PageRequest.of(request.getPage(), request.getLimit());
         return (PageImpl) repository.banners(pageable).map(element -> {
-            FileDto image = imageFeign.files(element.getBannerNo(), FileType.BANNER)
-                                      .getBody()
-                                      .stream()
-                                      .findAny()
-                                      .orElseGet(() -> null);
+            FileDto image = Optional.ofNullable(imageFeign.file(element.getBannerNo(), FileType.BANNER).getBody()).orElseGet(() -> null);
             element.setImage(image);
             return element;
         });
@@ -57,9 +53,7 @@ public class BannerService {
     public BannerDto banner(Long bannerNo) throws CommonException {
         return Optional.ofNullable(repository.banner(bannerNo))
                        .map(bannerDto -> {
-                           FileDto image = imageFeign.files(bannerDto.getBannerNo(), FileType.BANNER)
-                                                     .getBody().stream()
-                                                     .findAny().orElseGet(() -> null);
+                           FileDto image = Optional.ofNullable(imageFeign.file(bannerDto.getBannerNo(), FileType.BANNER).getBody()).orElseGet(() -> null);
                            bannerDto.setImage(image);
                            return bannerDto;
                         })

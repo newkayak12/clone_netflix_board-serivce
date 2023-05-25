@@ -37,7 +37,7 @@ public class CustomerServiceService {
 
     public Boolean save(SaveCsRequest request) {
         CustomerService cs = mapper.map(request, CustomerService.class);
-        return Optional.ofNullable(repository.save(cs)).map( customerService ->  true).orElseGet(() -> false);
+        return Optional.ofNullable(repository.save(cs)).map( Objects::nonNull ).orElseGet(() -> false);
     }
 
     public Boolean remove(Long csNo) {
