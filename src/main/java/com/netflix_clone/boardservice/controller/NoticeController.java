@@ -14,24 +14,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/api/v1/board")
+@RequestMapping(value = "/api/v1/notice")
 @RequiredArgsConstructor
 public class NoticeController {
     private final NoticeService service;
 
-    @GetMapping(value = "/notices/")
+    @GetMapping(value = "/")
     public ResponseEntity<PageImpl> notices(@ModelAttribute PageableRequest pageRequest) {
         return new ResponseEntity<>(service.notices(pageRequest), HttpStatus.OK);
     }
-    @GetMapping(value = "/notice/{noticeNo:[\\d]+}/")
+    @GetMapping(value = "/{noticeNo:[\\d]+}/")
     public ResponseEntity<NoticeDto> notice(@PathVariable Long noticeNo) throws CommonException {
         return new ResponseEntity<>(service.notice(noticeNo), HttpStatus.OK);
     }
-    @PostMapping(value = "/notice/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<Boolean> save(@ModelAttribute SaveNoticeRequest request){
         return new ResponseEntity<>(service.save(request), HttpStatus.OK);
     }
-    @DeleteMapping(value = "/notice/{noticeNo:[\\d]+}/")
+    @DeleteMapping(value = "/{noticeNo:[\\d]+}/")
     public ResponseEntity<Boolean> remove(@PathVariable Long noticeNo) {
         return new ResponseEntity<>(service.remove(noticeNo), HttpStatus.OK);
     }

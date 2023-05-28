@@ -41,10 +41,14 @@ public class Config {
     }
 
 
+    private void setJavaModule() {
+        this.objectMapper.registerModule(new JavaTimeModule());
+    }
     @Bean
     public ObjectMapper objectMapper () {
         this.deserializeSettings();
         this.serializeSettings();
+        this.setJavaModule();
         return this.objectMapper;
     }
 }

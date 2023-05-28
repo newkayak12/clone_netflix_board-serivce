@@ -11,12 +11,13 @@ public class Comment {
     @Column(name = "commentNo", columnDefinition = "BIGINT(20)")
     private Long commentNo;
 
-    @Column(name = "profileNo", nullable = true, columnDefinition = "BIGINT(20)")
-    private Long profileNo;
+    @ManyToOne
+    @JoinColumn(name = "profileNo", columnDefinition = "BIGINT(20)")
+    private BoardProfile profile;
     @Column(name = "contentsNo", nullable = false, columnDefinition = "BIGINT(20)")
     private Long contentsNo;
-    @Column(name = "comment", nullable = false, columnDefinition = "VARCHAR(500)")
-    private String comment;
+    @Column(name = "comments", nullable = false, columnDefinition = "VARCHAR(500)")
+    private String comments;
     @Column(name = "star", columnDefinition = "DOUBLE default 0.0")
     private Double star;
     @Column(name = "regDate", columnDefinition = "DATETIME default CURRENT_TIMESTAMP()")

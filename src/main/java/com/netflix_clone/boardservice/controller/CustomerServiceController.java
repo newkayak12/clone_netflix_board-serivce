@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/board")
+@RequestMapping(value = "/api/v1/cs")
 @RequiredArgsConstructor
 public class CustomerServiceController {
     private final CustomerServiceService service;
 
-    @GetMapping(value = "/css/")
+    @GetMapping(value = "/")
     public ResponseEntity customerServices(@ModelAttribute PageableRequest request) {
         return new ResponseEntity<PageImpl>(service.customerServices(request), HttpStatus.OK);
     }
-    @GetMapping(value = "/cs/{csNo:[\\d]+}")
+    @GetMapping(value = "/{csNo:[\\d]+}")
     public ResponseEntity customerService(@PathVariable Long csNo){
         return new ResponseEntity<CustomerServiceDto>(service.customerService(csNo), HttpStatus.OK);
     }
-    @PostMapping(value = "/cs/save/")
+    @PostMapping(value = "/")
     public ResponseEntity save(@RequestBody SaveCsRequest request){
         return new ResponseEntity<Boolean>(service.save(request), HttpStatus.OK);
     }
-    @DeleteMapping(value = "/cs/{csNo:[\\d]+}")
+    @DeleteMapping(value = "/{csNo:[\\d]+}")
     public ResponseEntity remove(@PathVariable Long csNo){
         return new ResponseEntity<Boolean>(service.remove(csNo), HttpStatus.OK);
     }

@@ -24,9 +24,10 @@ public class ProfileDto implements Serializable {
     @Transient
     private FileDto image;
 
-
+    @QueryProjection
     public ProfileDto(Long profileNo, String profileName) {
         this.profileNo = profileNo;
         this.profileName = profileName;
     }
+
 }

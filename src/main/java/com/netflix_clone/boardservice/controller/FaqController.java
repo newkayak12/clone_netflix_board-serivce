@@ -17,27 +17,27 @@ import java.util.List;
  * Project board-service
  */
 @RestController
-@RequestMapping(value = "/api/v1/board")
+@RequestMapping(value = "/api/v1/faq")
 @RequiredArgsConstructor
 public class FaqController {
     private final FaqService service;
 
-    @GetMapping(value = "/faqs/")
+    @GetMapping(value = "/")
     public ResponseEntity<List<FaqDto>> faqs(@ModelAttribute PageableRequest pageable){
         return new ResponseEntity(service.faqs(pageable), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/faq/{faqNo:[\\d]+}/")
+    @GetMapping(value = "/{faqNo:[\\d]+}/")
     public ResponseEntity<FaqDto> faq(@PathVariable Long faqNo) throws CommonException {
         return new ResponseEntity<>(service.faq(faqNo), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/faq/")
+    @PostMapping(value = "/")
     public ResponseEntity<Boolean> save(@RequestBody SaveFaqRequest request){
         return new ResponseEntity<>(service.save(request), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/faq/{faqNo:[\\d+]/")
+    @DeleteMapping(value = "/{faqNo:[\\d+]/")
     public ResponseEntity<Boolean> remove(@PathVariable Long faqNo) {
         return new ResponseEntity<>(service.remove(faqNo), HttpStatus.OK);
     }

@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/v1/board")
+@RequestMapping(value = "/api/v1/banner")
 @RequiredArgsConstructor
 public class BannerController {
     private final BannerService service;
 
-    @GetMapping(value = "/banners/")
+    @GetMapping(value = "/")
     public ResponseEntity<PageImpl<BannerDto>> banners(PageableRequest request) {
         return new ResponseEntity<>(service.banners(request), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/banner/{bannerNo:[\\d]+}/")
+    @GetMapping(value = "/{bannerNo:[\\d]+}/")
     public ResponseEntity<BannerDto> banner(@PathVariable Long bannerNo) throws CommonException {
         return new ResponseEntity<>(service.banner(bannerNo), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/banner/", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    @PostMapping(value = "/", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Boolean> save(@ModelAttribute SaveBannerRequest request) {
         return new ResponseEntity<>(service.save(request), HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/banner/{bannerNo:[\\d]+}/")
+    @DeleteMapping(value = "/{bannerNo:[\\d]+}/")
     public ResponseEntity<Boolean> remove(@PathVariable Long bannerNo) {
         return new ResponseEntity<>(service.remove(bannerNo), HttpStatus.OK);
     }
