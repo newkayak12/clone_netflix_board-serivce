@@ -1,6 +1,6 @@
 package com.netflix_clone.boardservice.controller;
 
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.dto.reference.CommentDto;
 import com.netflix_clone.boardservice.repository.dto.reference.PageableRequest;
 import com.netflix_clone.boardservice.service.CommentService;
@@ -10,8 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(value = "/api/v1/comment")
 @RequiredArgsConstructor
@@ -20,7 +18,6 @@ public class CommentController {
 
     @GetMapping(value = "/")
     public ResponseEntity<PageImpl<CommentDto>> comments(@ModelAttribute PageableRequest request){
-
         return new ResponseEntity<>(service.comments(request), HttpStatus.OK);
     }
     @GetMapping(value = "/{commentNo:[\\d]+}")

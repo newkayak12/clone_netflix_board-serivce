@@ -1,6 +1,6 @@
 package com.netflix_clone.boardservice.controller;
 
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.dto.reference.FaqDto;
 import com.netflix_clone.boardservice.repository.dto.reference.PageableRequest;
 import com.netflix_clone.boardservice.repository.dto.request.SaveFaqRequest;

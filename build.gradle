@@ -10,6 +10,7 @@ plugins {
     id 'org.springframework.boot' version '2.7.11'
     id 'io.spring.dependency-management' version '1.0.15.RELEASE'
     id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+    id "org.asciidoctor.jvm.convert" version "3.3.2"  // (1)
 }
 
 group = 'com.netflix_clone'
@@ -21,6 +22,9 @@ configurations {
         extendsFrom annotationProcessor
     }
 }
+configurations {
+    asciidoctorExt // (2)
+}
 
 repositories {
     mavenCentral()
@@ -29,6 +33,7 @@ repositories {
 
 ext {
     set('springCloudVersion', "2021.0.7")
+    snippetsDir = file('build/generated-snippets') // (5)
 }
 
 dependencies {
@@ -39,6 +44,8 @@ dependencies {
 //Test
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.assertj:assertj-core:3.23.1'
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor' // (3)
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc' // (4)
 
 //SpringBoot Starter
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -76,8 +83,29 @@ dependencyManagement {
 
 tasks.named('test') {
     useJUnitPlatform()
+    outputs.dir snippetsDir // (6)
 }
 
+asciidoctor {
+    configurations 'asciidoctorExt' // (7)
+    baseDirFollowsSourceFile() // (8)
+    inputs.dir snippetsDir // (9)
+    dependsOn test // (10)
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')  // (11)
+}
+
+task copyDocument(type: Copy) { // (12)
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+build {
+    dependsOn copyDocument
+}
 
 
 configurations {

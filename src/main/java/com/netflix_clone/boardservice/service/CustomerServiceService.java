@@ -27,7 +27,7 @@ public class CustomerServiceService {
     private final CustomerServiceRepository repository;
 
     public PageImpl<CustomerServiceDto> customerServices(PageableRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getLimit());
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit());
         return repository.customerServices(pageable);
     }
 

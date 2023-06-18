@@ -5,6 +5,7 @@ import com.netflix_clone.boardservice.repository.domains.Banner;
 //import com.netflix_clone.boardservice.repository.dto.QFaqDto;
 import com.netflix_clone.boardservice.repository.dto.reference.BannerDto;
 import com.netflix_clone.boardservice.repository.dto.reference.QBannerDto;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.JPQLQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.netflix_clone.boardservice.repository.domains.QBanner.banner;
 public class BannerRepositoryImpl extends QuerydslRepositorySupport implements BannerRepositoryCustom {
@@ -25,6 +27,15 @@ public class BannerRepositoryImpl extends QuerydslRepositorySupport implements B
     }
 
     @Override
+    public Long bannerCount(Long bannerNo) {
+        BooleanBuilder condition = new BooleanBuilder();
+
+        if(Objects.nonNull(bannerNo)) condition.and(banner.bannerNo.ne(bannerNo));
+
+        return query.select().from(banner).where(condition).fetchCount();
+    }
+
+    @Override
     public PageImpl<BannerDto> banners(Pageable pageable) {
         List<BannerDto> list =  query.select( new QBannerDto(
                                                     banner.bannerNo,
@@ -32,8 +43,8 @@ public class BannerRepositoryImpl extends QuerydslRepositorySupport implements B
                                                     banner.url
                                                 ))
                                     .from(banner)
-                                    .limit(pageable.getOffset())
-                                    .offset(pageable.getPageSize())
+                                    .offset(pageable.getOffset())
+                                    .limit(pageable.getPageSize())
                                     .orderBy(banner.bannerNo.desc())
                                     .fetch();
 

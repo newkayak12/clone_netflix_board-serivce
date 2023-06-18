@@ -3,7 +3,7 @@ package com.netflix_clone.boardservice.repository.domains;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Table(name = "report")
+@Table
 @Entity
 public class Report {
 
@@ -17,10 +17,10 @@ public class Report {
     private Comment comment;
 
     @OneToOne
-    @JoinColumn(name = "profileNo", columnDefinition = "BIGGINT(20)")
+    @JoinColumn(name = "profileNo", columnDefinition = "BIGINT(20)")
     private BoardProfile profile;
 
-    @Column(name = "reportDate", columnDefinition = "DATETIME defualt CURRENT_TIMESTAMP()")
+    @Column(name = "reportDate", columnDefinition = "DATETIME default CURRENT_TIMESTAMP()")
     private LocalDateTime reportDate;
 
     @PrePersist

@@ -6,7 +6,7 @@ import lombok.ToString;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-@ToString
+@ToString(callSuper = true)
 public class SaveBannerRequest extends BannerDto {
     private MultipartFile rawFile;
 }

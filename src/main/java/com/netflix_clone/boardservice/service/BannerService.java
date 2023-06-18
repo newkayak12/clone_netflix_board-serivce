@@ -1,33 +1,26 @@
 package com.netflix_clone.boardservice.service;
 
-import com.netflix_clone.boardservice.configure.feign.ImageFeign;
-import com.netflix_clone.boardservice.enums.FileType;
-import com.netflix_clone.boardservice.exception.BecauseOf;
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.configure.feign.ImageFeign;
+import com.netflix_clone.boardservice.component.constants.Constants;
+import com.netflix_clone.boardservice.component.enums.FileType;
+import com.netflix_clone.boardservice.component.exception.BecauseOf;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.bannerRepository.BannerRepository;
 import com.netflix_clone.boardservice.repository.domains.Banner;
-import com.netflix_clone.boardservice.repository.domains.Faq;
 import com.netflix_clone.boardservice.repository.dto.reference.*;
 import com.netflix_clone.boardservice.repository.dto.request.SaveBannerRequest;
-import com.netflix_clone.boardservice.repository.dto.request.SaveFaqRequest;
-import com.netflix_clone.boardservice.repository.faqRepository.FaqRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.jcajce.provider.asymmetric.COMPOSITE;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Transient;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -41,7 +34,8 @@ public class BannerService {
 
     @Transactional(readOnly = true)
     public PageImpl banners(PageableRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getLimit());
+        log.warn("REQUEST {}", request);
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit());
         return (PageImpl) repository.banners(pageable).map(element -> {
             FileDto image = Optional.ofNullable(imageFeign.file(element.getBannerNo(), FileType.BANNER).getBody()).orElseGet(() -> null);
             element.setImage(image);
@@ -60,24 +54,27 @@ public class BannerService {
                         .orElseThrow(() -> new CommonException(BecauseOf.NO_DATA));
     }
 
-    public Boolean save(SaveBannerRequest request) {
+    public Boolean save(SaveBannerRequest request) throws CommonException {
+        if( repository.bannerCount(request.getBannerNo()) >= Constants.BANNER_MAXIMUM_COUNT )
+                                throw new CommonException(BecauseOf.EXCEED_MAXIMUM_BANNER_COUNT);
+
         Banner banner = mapper.map(request, Banner.class);
-        return Optional.ofNullable(repository.save(banner))
-                .map(result -> {
-                    if (Objects.nonNull(request.getBannerNo())) imageFeign.remove(request.getBannerNo(), FileType.BANNER);
+        banner = Optional.ofNullable(repository.save(banner)).orElseThrow(() -> new CommonException(BecauseOf.SAVE_FAILURE));
 
-                    FileRequest fileRequest = new FileRequest();
-                    fileRequest.setRawFile(request.getRawFile());
-                    fileRequest.setTableNo(result.getBannerNo());
-                    fileRequest.setFileType(FileType.BANNER);
-                    Integer count = imageFeign.save(Arrays.asList(fileRequest)).getBody().size();
+        if (Objects.nonNull(request.getBannerNo()) && Objects.nonNull(request.getRawFile()))
+            imageFeign.remove(request.getBannerNo(), FileType.BANNER);
 
-                    return count > 0 ? true : false;
-                })
-                .orElseGet( () -> false);
+        FileRequest fileRequest = new FileRequest();
+        fileRequest.setRawFile(request.getRawFile());
+        fileRequest.setTableNo(banner.getBannerNo());
+        fileRequest.setFileType(FileType.BANNER.name());
+
+        return Optional.ofNullable(imageFeign.save(fileRequest).getBody())
+                .map(file -> true).orElseThrow(() -> new CommonException(BecauseOf.SAVE_FAILURE));
     }
 
     public Boolean remove(Long bannerNo) {
+        imageFeign.remove(bannerNo, FileType.BANNER);
         return repository.remove(bannerNo);
     }
 }

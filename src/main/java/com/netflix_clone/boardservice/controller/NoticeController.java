@@ -1,11 +1,10 @@
 package com.netflix_clone.boardservice.controller;
 
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.dto.reference.NoticeDto;
 import com.netflix_clone.boardservice.repository.dto.reference.PageableRequest;
 import com.netflix_clone.boardservice.repository.dto.request.SaveNoticeRequest;
 import com.netflix_clone.boardservice.service.NoticeService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.http.HttpStatus;

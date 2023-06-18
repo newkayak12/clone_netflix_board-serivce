@@ -3,6 +3,7 @@ package com.netflix_clone.boardservice.repository.domains;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class Banner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

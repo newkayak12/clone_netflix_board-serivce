@@ -1,9 +1,9 @@
 package com.netflix_clone.boardservice.service;
 
-import com.netflix_clone.boardservice.configure.feign.ImageFeign;
-import com.netflix_clone.boardservice.enums.FileType;
-import com.netflix_clone.boardservice.exception.BecauseOf;
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.configure.feign.ImageFeign;
+import com.netflix_clone.boardservice.component.enums.FileType;
+import com.netflix_clone.boardservice.component.exception.BecauseOf;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.domains.Notice;
 import com.netflix_clone.boardservice.repository.dto.reference.FileDto;
 import com.netflix_clone.boardservice.repository.dto.reference.FileRequest;
@@ -21,7 +21,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,7 +34,7 @@ public class NoticeService {
     private final ModelMapper mapper;
 
     public PageImpl notices(PageableRequest pageRequest) {
-        Pageable pageable = PageRequest.of(pageRequest.getPage(), pageRequest.getLimit());
+        Pageable pageable = PageRequest.of(pageRequest.getPage() - 1, pageRequest.getLimit());
         return (PageImpl) repository.notices(pageable).map( dto -> {
            dto.setImages(imageFeign.files(dto.getNoticeNo(), FileType.NOTICE).getBody());
            return dto;
@@ -55,19 +54,19 @@ public class NoticeService {
     public Boolean save(SaveNoticeRequest request) {
         Notice notice = mapper.map(request, Notice.class);
         return Optional.ofNullable(repository.save(notice)).map(result -> {
-            if(!request.getImages().isEmpty()) {
-                imageFeign.removeNotIn(request.getImages());
-            }
-            if(!request.getRawFiles().isEmpty()) {
-                List<FileRequest> fileRequests = request.getRawFiles().stream().map(raw -> {
-                    FileRequest fileRequest = new FileRequest();
-                    fileRequest.setRawFile(raw);
-                    fileRequest.setTableNo(request.getNoticeNo());
-                    fileRequest.setFileType(FileType.NOTICE);
-                    return fileRequest;
-                }).collect(Collectors.toList());
-                imageFeign.save(fileRequests);
-            }
+//            if(!request.getImages().isEmpty()) {
+//                imageFeign.removeNotIn(request.getImages());
+//            }
+//            if(!request.getRawFiles().isEmpty()) {
+//                List<FileRequest> fileRequests = request.getRawFiles().stream().map(raw -> {
+//                    FileRequest fileRequest = new FileRequest();
+//                    fileRequest.setRawFile(raw);
+//                    fileRequest.setTableNo(request.getNoticeNo());
+//                    fileRequest.setFileType(FileType.NOTICE);
+//                    return fileRequest;
+//                }).collect(Collectors.toList());
+//                imageFeign.save(fileRequests);
+//            }
             return true;
         }).orElseGet(() -> false);
     }

@@ -1,9 +1,9 @@
 package com.netflix_clone.boardservice.service;
 
-import com.netflix_clone.boardservice.configure.feign.ImageFeign;
-import com.netflix_clone.boardservice.enums.FileType;
-import com.netflix_clone.boardservice.exception.BecauseOf;
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.configure.feign.ImageFeign;
+import com.netflix_clone.boardservice.component.enums.FileType;
+import com.netflix_clone.boardservice.component.exception.BecauseOf;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.commentRepository.CommentRepository;
 import com.netflix_clone.boardservice.repository.domains.Comment;
 import com.netflix_clone.boardservice.repository.dto.reference.CommentDto;
@@ -18,12 +18,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.ui.ModelMap;
 
 import java.util.Objects;
 import java.util.Optional;
-import static com.netflix_clone.boardservice.repository.domains.QComment.comment;
-import static com.netflix_clone.boardservice.repository.domains.QBoardProfile.boardProfile;
 
 @Service
 @Slf4j
@@ -37,7 +34,7 @@ public class CommentService {
 
     @Transactional(readOnly = true)
     public PageImpl<CommentDto> comments(PageableRequest request) {
-        Pageable pageable = PageRequest.of(request.getPage(), request.getLimit());
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit());
         return (PageImpl<CommentDto>)  repository.comments(pageable, request).map(comment -> {
 
 //            CommentDto commentResult  = mapper.map(queryResult.get(comment), CommentDto.class);

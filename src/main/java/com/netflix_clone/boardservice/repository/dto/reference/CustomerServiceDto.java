@@ -1,8 +1,7 @@
 package com.netflix_clone.boardservice.repository.dto.reference;
 
-import com.netflix_clone.boardservice.enums.CsType;
+import com.netflix_clone.boardservice.component.enums.CsType;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

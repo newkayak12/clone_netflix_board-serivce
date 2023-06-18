@@ -1,6 +1,6 @@
 package com.netflix_clone.boardservice.repository.domains;
 
-import com.netflix_clone.boardservice.enums.CsType;
+import com.netflix_clone.boardservice.component.enums.CsType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

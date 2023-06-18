@@ -1,7 +1,7 @@
 package com.netflix_clone.boardservice.service;
 
-import com.netflix_clone.boardservice.exception.BecauseOf;
-import com.netflix_clone.boardservice.exception.CommonException;
+import com.netflix_clone.boardservice.component.exception.BecauseOf;
+import com.netflix_clone.boardservice.component.exception.CommonException;
 import com.netflix_clone.boardservice.repository.domains.Faq;
 import com.netflix_clone.boardservice.repository.dto.reference.FaqDto;
 import com.netflix_clone.boardservice.repository.dto.reference.PageableRequest;
