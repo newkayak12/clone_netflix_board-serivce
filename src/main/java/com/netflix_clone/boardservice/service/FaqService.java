@@ -29,7 +29,7 @@ public class FaqService {
 
     @Transactional(readOnly = true)
     public PageImpl faqs(PageableRequest pageDto) {
-        Pageable pageable = PageRequest.of(pageDto.getPage(), pageDto.getLimit());
+        Pageable pageable = PageRequest.of(pageDto.getPage() - 1, pageDto.getLimit());
         return repository.faqs(pageable);
     }
 
