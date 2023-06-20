@@ -22,7 +22,7 @@ public class NoticeController {
     public ResponseEntity<PageImpl> notices(@ModelAttribute PageableRequest pageRequest) {
         return new ResponseEntity<>(service.notices(pageRequest), HttpStatus.OK);
     }
-    @GetMapping(value = "/{noticeNo:[\\d]+}/")
+    @GetMapping(value = "/{noticeNo:[\\d]+}")
     public ResponseEntity<NoticeDto> notice(@PathVariable Long noticeNo) throws CommonException {
         return new ResponseEntity<>(service.notice(noticeNo), HttpStatus.OK);
     }
@@ -30,7 +30,7 @@ public class NoticeController {
     public ResponseEntity<Boolean> save(@ModelAttribute SaveNoticeRequest request){
         return new ResponseEntity<>(service.save(request), HttpStatus.OK);
     }
-    @DeleteMapping(value = "/{noticeNo:[\\d]+}/")
+    @DeleteMapping(value = "/{noticeNo:[\\d]+}")
     public ResponseEntity<Boolean> remove(@PathVariable Long noticeNo) {
         return new ResponseEntity<>(service.remove(noticeNo), HttpStatus.OK);
     }

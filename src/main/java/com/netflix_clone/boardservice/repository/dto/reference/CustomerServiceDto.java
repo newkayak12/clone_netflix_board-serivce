@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -35,5 +36,10 @@ public class CustomerServiceDto implements Serializable {
         this.askedDate = askedDate;
         this.replyDate = replyDate;
         this.isReplSent = isReplSent;
+    }
+
+    public void replied(){
+        this.replyDate = LocalDateTime.now();
+        this.isReplSent = true;
     }
 }

@@ -32,6 +32,12 @@ public class CustomerServiceController {
     public ResponseEntity save(@RequestBody SaveCsRequest request){
         return new ResponseEntity<Boolean>(service.save(request), HttpStatus.OK);
     }
+
+    @PatchMapping(value = "/reply")
+    public ResponseEntity reply(@ModelAttribute SaveCsRequest request){
+        return ResponseEntity.ok(service.reply(request));
+    }
+
     @DeleteMapping(value = "/{csNo:[\\d]+}")
     public ResponseEntity remove(@PathVariable Long csNo){
         return new ResponseEntity<Boolean>(service.remove(csNo), HttpStatus.OK);

@@ -1,11 +1,16 @@
 package com.netflix_clone.boardservice.repository.domains;
 
+import lombok.Getter;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Table(name = "notice")
 @Entity
+@ToString
+@Getter
 public class Notice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

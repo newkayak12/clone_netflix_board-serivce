@@ -72,6 +72,9 @@ dependencies {
 
 //DateTime jackson.datatype.binder
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0'
+
+
+    implementation 'com.github.newkayak12:Dependency-EmailSender:1.0.1'
 }
 
 
