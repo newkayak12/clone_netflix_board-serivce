@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -55,13 +56,30 @@ class CustomerServiceControllerTest extends AbstractControllerTest {
 
         @Test
         @DisplayName(value = "리스트")
-        void list() {
-
+        void list() throws Exception {
+            mockMvc.perform(
+                        get(String.format("%s/", prefix))
+                                .param("page", "1")
+                                .param("limit", "10")
+                )
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content.size()").value(10));
         }
         @Test
         @DisplayName(value = "단일")
-        void customerService() {
-
+        void customerService() throws Exception {
+            mockMvc.perform(
+                get(String.format("%s/%d", prefix, 11))
+            )
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.csNo").value(11))
+            .andExpect(jsonPath("$.type").value("UNCOMFORTABLE"))
+            .andExpect(jsonPath("$.email").value("newkayak12@gmail.com"))
+            .andExpect(jsonPath("$.question").value("Q11"))
+            .andExpect(jsonPath("$.answer").value("A"))
+            .andExpect(jsonPath("$.askedDate").value("2023-06-20T22:22:29"))
+            .andExpect(jsonPath("$.replyDate").value("2023-06-20T22:44:16"))
+            .andExpect(jsonPath("$.isReplSent").value(true));
         }
     }
 

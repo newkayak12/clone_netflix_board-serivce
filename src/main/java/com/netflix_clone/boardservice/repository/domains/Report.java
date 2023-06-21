@@ -1,10 +1,17 @@
 package com.netflix_clone.boardservice.repository.domains;
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table
 @Entity
+@DynamicUpdate
+@DynamicInsert
 public class Report {
 
     @Id

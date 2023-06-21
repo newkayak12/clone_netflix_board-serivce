@@ -17,12 +17,12 @@ import java.time.LocalDateTime;
 public class ReportDto implements Serializable {
     private Long reportNo;
     private CommentDto comment;
-    private BoardProfile profile;
+    private ProfileDto profile;
     private LocalDateTime reportDate;
 
 
     @QueryProjection
-    public ReportDto(Long reportNo, CommentDto comment, BoardProfile profile, LocalDateTime reportDate) {
+    public ReportDto(Long reportNo, CommentDto comment, ProfileDto profile, LocalDateTime reportDate) {
         this.reportNo = reportNo;
         this.comment = comment;
         this.profile = profile;

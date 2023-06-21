@@ -2,11 +2,13 @@ package com.netflix_clone.boardservice.repository.domains;
 
 import lombok.Getter;
 import lombok.ToString;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Table(name = "notice")
 @Entity
 @ToString
