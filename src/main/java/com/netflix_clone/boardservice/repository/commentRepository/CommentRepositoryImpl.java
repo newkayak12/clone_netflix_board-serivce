@@ -44,15 +44,13 @@ public class CommentRepositoryImpl extends QuerydslRepositorySupport implements 
         )
         .from(comment)
         .leftJoin(boardProfile).on(comment.profile.profileNo.eq(boardProfile.profileNo))
-        .leftJoin(report).on(report.comment.profile.profileNo.eq(comment.profile.profileNo))
+//        .leftJoin(report).on(report.comment.profile.profileNo.eq(comment.profile.profileNo))
         .where(
-                report.reportNo.count().loe(0)
-            .and(comment.contentsNo.eq(parameter.getTableNo()))
+            comment.contentsNo.eq(parameter.getTableNo())
         )
         .limit(request.getPageSize())
         .offset(request.getOffset())
         .orderBy(comment.commentNo.desc())
-        .groupBy(comment.commentNo)
         .fetch();
 
 
@@ -78,6 +76,7 @@ public class CommentRepositoryImpl extends QuerydslRepositorySupport implements 
                 )
                 .from(comment)
                 .leftJoin(boardProfile).on(boardProfile.profileNo.eq(comment.profile.profileNo))
+                .where(comment.commentNo.eq(commentNo))
                 .fetchOne();
     }
 
