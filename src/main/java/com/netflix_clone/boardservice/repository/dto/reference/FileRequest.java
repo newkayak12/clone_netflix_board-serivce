@@ -22,5 +22,4 @@ public class FileRequest {
     private String contentType;
     private Long fileSize;
     private MultipartFile rawFile;
-
 }

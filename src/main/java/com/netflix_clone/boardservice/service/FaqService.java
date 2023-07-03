@@ -2,6 +2,7 @@ package com.netflix_clone.boardservice.service;
 
 import com.netflix_clone.boardservice.component.exception.BecauseOf;
 import com.netflix_clone.boardservice.component.exception.CommonException;
+import com.netflix_clone.boardservice.component.wrap.RestPage;
 import com.netflix_clone.boardservice.repository.domains.Faq;
 import com.netflix_clone.boardservice.repository.dto.reference.FaqDto;
 import com.netflix_clone.boardservice.repository.dto.reference.PageableRequest;
@@ -28,9 +29,9 @@ public class FaqService {
     private final FaqRepository repository;
 
     @Transactional(readOnly = true)
-    public PageImpl faqs(PageableRequest pageDto) {
+    public RestPage faqs(PageableRequest pageDto) {
         Pageable pageable = PageRequest.of(pageDto.getPage() - 1, pageDto.getLimit());
-        return repository.faqs(pageable);
+        return new RestPage(repository.faqs(pageable));
     }
 
     @Transactional(readOnly = true)

@@ -59,6 +59,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
     implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.data:spring-data-redis'
+    implementation 'io.lettuce:lettuce-core'
 
 
 //Hibernate & QueryDSL
@@ -72,6 +74,7 @@ dependencies {
 
 //DateTime jackson.datatype.binder
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.0'
+    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8'
 
 
     implementation 'com.github.newkayak12:Dependency-EmailSender:1.0.1'

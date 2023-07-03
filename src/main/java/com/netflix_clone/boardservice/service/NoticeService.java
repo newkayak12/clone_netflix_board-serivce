@@ -5,6 +5,7 @@ import com.netflix_clone.boardservice.component.configure.feign.ImageFeign;
 import com.netflix_clone.boardservice.component.enums.FileType;
 import com.netflix_clone.boardservice.component.exception.BecauseOf;
 import com.netflix_clone.boardservice.component.exception.CommonException;
+import com.netflix_clone.boardservice.component.wrap.RestPage;
 import com.netflix_clone.boardservice.repository.domains.Notice;
 import com.netflix_clone.boardservice.repository.dto.reference.*;
 import com.netflix_clone.boardservice.repository.dto.request.SaveNoticeRequest;
@@ -32,12 +33,12 @@ public class NoticeService {
     private final ImageFeign imageFeign;
     private final ModelMapper mapper;
 
-    public PageImpl notices(PageableRequest pageRequest) {
+    public RestPage notices(PageableRequest pageRequest) {
         Pageable pageable = PageRequest.of(pageRequest.getPage() - 1, pageRequest.getLimit());
-        return (PageImpl) repository.notices(pageable).map( dto -> {
+        return new RestPage( repository.notices(pageable).map(dto -> {
            dto.setImages(imageFeign.files(dto.getNoticeNo(), FileType.NOTICE).getBody());
            return dto;
-        });
+        }));
     }
 
     public NoticeDto notice(Long noticeNo) throws CommonException {

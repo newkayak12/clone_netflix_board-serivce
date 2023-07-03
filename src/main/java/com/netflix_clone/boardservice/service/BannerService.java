@@ -5,6 +5,7 @@ import com.netflix_clone.boardservice.component.constants.Constants;
 import com.netflix_clone.boardservice.component.enums.FileType;
 import com.netflix_clone.boardservice.component.exception.BecauseOf;
 import com.netflix_clone.boardservice.component.exception.CommonException;
+import com.netflix_clone.boardservice.component.wrap.RestPage;
 import com.netflix_clone.boardservice.repository.bannerRepository.BannerRepository;
 import com.netflix_clone.boardservice.repository.domains.Banner;
 import com.netflix_clone.boardservice.repository.dto.reference.*;
@@ -33,14 +34,13 @@ public class BannerService {
 
 
     @Transactional(readOnly = true)
-    public PageImpl banners(PageableRequest request) {
-        log.warn("REQUEST {}", request);
+    public RestPage banners(PageableRequest request) {
         Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit());
-        return (PageImpl) repository.banners(pageable).map(element -> {
+        return new RestPage( repository.banners(pageable).map(element -> {
             FileDto image = Optional.ofNullable(imageFeign.file(element.getBannerNo(), FileType.BANNER).getBody()).orElseGet(() -> null);
             element.setImage(image);
             return element;
-        });
+        }));
     }
 
     @Transactional(readOnly = true)
